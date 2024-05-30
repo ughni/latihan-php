@@ -1,4 +1,9 @@
 <?php 
+session_start();
+
+if (!isset($_SESSION['login'])) {
+    header('Location: login.php');
+}
 require 'function.php';
 
 $no = $_GET["no"];
@@ -18,4 +23,4 @@ if (hapus($no) > 0 ) {
     </script>
     ";
  }
- ?>
+ ?> 

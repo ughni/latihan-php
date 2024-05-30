@@ -1,4 +1,11 @@
 <?php
+// pertama
+session_start();
+
+if (isset($_SESSION['login'])) {
+    header('Location: index.php');
+}
+
 // koneksi ke function
 require 'function.php';
 // apakah tombol login sudah  diclick atau belum  
@@ -16,17 +23,17 @@ if (isset($_POST['login'])) {
         $row = mysqli_fetch_assoc($reslut);  // ini tangkap semua isi baris table
        if(password_verify($password, $row['password'])) // ini verifikasi password 
         {
+            // set session
+            $_SESSION["login"] = true; 
+
             header('Location: index.php');
             exit;
        }
 
     }
 
-    $error = true;
+    $error = true;  
 }
-
-
-
 
 ?>
 

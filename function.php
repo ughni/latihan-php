@@ -163,7 +163,7 @@ function registerasi($data) {
              </script>  
             ';
              return false;
-    }
+    }   
     // enkripsi password
     // $password = password_hash($password, PASSWORD_DEFAULT);
     $password = password_hash($password, PASSWORD_DEFAULT);

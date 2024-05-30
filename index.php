@@ -1,5 +1,11 @@
 <!-- php -->
 <?php
+session_start();
+
+if (!isset($_SESSION['login'])) {
+    header('Location: login.php');
+}
+
 require 'function.php';
 $mhs = query('SELECT * FROM pendaftaran'); 
 
@@ -20,6 +26,9 @@ if (isset($_POST['cari']) ) {
 <body>
     <h1>Data Pendaftaran</h1>
 
+    <br>
+    <a href="logout.php">logout</a>
+    <br>
 
     <form action="" method="post">
         <input type="text" name="keyword" autofocus autocomplete size="80" placeholder="Masukan yang mau cari">
