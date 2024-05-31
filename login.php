@@ -1,13 +1,28 @@
 <?php
 // pertama
 session_start();
+// koneksi ke function
+require 'function.php';
+
+// cek cookie 
+if (isset($_COOKIE["no"]) && isset($_COOKIE['key']) ) {
+ $no = $_COOKIE['no'];
+ $key = $_COOKIE['key'];
+
+//  ambil no dan username
+    $reslut = mysqli_query( $conn, "SELECT username FROM user WHERE no = $no");
+    $row = mysqli_fetch_assoc($reslut);
+
+    // cek cookie dan username
+    if($key === hash('sha256',$row['username']) ){
+        $_SESSION['login'] = true;
+    } 
+}
 
 if (isset($_SESSION['login'])) {
     header('Location: index.php');
 }
 
-// koneksi ke function
-require 'function.php';
 // apakah tombol login sudah  diclick atau belum  
 if (isset($_POST['login'])) {
 
@@ -25,6 +40,12 @@ if (isset($_POST['login'])) {
         {
             // set session
             $_SESSION["login"] = true; 
+
+            // cek remember me
+            if(isset($_POST["remember"]))  {
+                setcookie('no', $row['no'], time() + 120);
+                setcookie('key', hash('sha256', $row['username']), time() + 120);
+            }
 
             header('Location: index.php');
             exit;
@@ -60,6 +81,10 @@ if (isset($_POST['login'])) {
             <li>
                 <label for="password">password</label>
                 <input type="password" name="password" id="password" placholder="password">
+            </li>
+            <li>
+                <input type="checkbox" name="remember" id="remember" placholder="Remember me">
+                <label for="remember">Remember me</label>
             </li>
             <li>
                 <button type="submit" name="login">Login</button>
