@@ -7,9 +7,19 @@ if (!isset($_SESSION['login'])) {
 }
 
 require 'function.php';
-$mhs = query('SELECT * FROM pendaftaran'); 
+
+// pagination
+// konfigurasi
+$jumlahPerhalaman = 3; // jumlah data perhalaman 
+$jumlahData = count(query("SELECT * FROM pendaftaran")); //mengambil ada berapa isi tabel
+$jumlahHalaman = ceil(  $jumlahData / $jumlahPerhalaman ); // untuk bagi ke atas
+// kalo pertama buka halaman jalankan ini dulu
+$halmAktif = (isset($_GET["hal"]) ) ? $_GET["hal"] : 1; //kalo baru buka halaman langsung ke halaman pertama
+$awalData = ($jumlahPerhalaman * $halmAktif) - $jumlahPerhalaman; // ini untuk algoritma perbandingan
 
 
+
+$mhs = query("SELECT * FROM pendaftaran LIMIT $awalData, $jumlahPerhalaman"); 
 // kalau sudah click tombol cari
 if (isset($_POST['cari']) ) {    
     $mhs = cari($_POST['keyword']);
@@ -23,7 +33,6 @@ if (isset($_POST['cari']) ) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Pendaftaran</title>
 </head>
-<body>
     <h1>Data Pendaftaran</h1>
 
     <br>
@@ -64,6 +73,25 @@ if (isset($_POST['cari']) ) {
         <?php endforeach; ?>
     </table>
     <a href="tambah.php">tambah</a>
-    
+   
+    <!-- nafigasi  -->
+    <?php if($halmAktif > 1) : ?>  <!-- kalo lebih besar dari satu  -->
+        <a href="?hal=<?= $halmAktif - 1; ?>">&laquo;</a>  <!-- ini jalankan  -->
+    <?php endif; ?>  <!-- untuk mengakhiri if  -->
+
+    <?php for($i = 1; $i <= $jumlahHalaman; $i++) : ?>  <!-- ini pengulangan apakah i lebih besar dari jumlahHalaman atau untuk menampilkan nomer  -->
+        <!-- if -->
+        <?php if ($i == $halmAktif) : ?>  <!-- ini di jalankan kalo yang aktif yang mana -->
+            <a href="?hal=<?= $i; ?>" style="color: red; font-weight: bold;" ><?=  $i;  ?></a>  <!-- ini kalo hasilnya true  -->
+            <?php else  : ?>
+                <a href="?hal=<?= $i; ?>"><?=  $i;  ?></a>  <!-- ini kalo hasilnya fales --> 
+        <?php endif; ?>  <!-- ini tutup if -->
+    <?php endfor; ?>     <!-- ini tutup for -->
+    ``
+    <!-- min  -->
+    <?php if($halmAktif < $jumlahHalaman) : ?>  <!-- kalo lebih besar dari satu  -->
+        <a href="?hal=<?= $halmAktif + 1; ?>">&raquo;</a>  <!-- ini jalankan  -->
+    <?php endif; ?>  <!-- untuk mengakhiri if  -->
+
 </body>
 </html>
