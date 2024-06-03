@@ -40,10 +40,11 @@ if (isset($_POST['cari']) ) {
     <br>
 
     <form action="" method="post">
-        <input type="text" name="keyword" autofocus autocomplete size="80" placeholder="Masukan yang mau cari">
-        <button type="submit" name="cari">Cari</button>
+        <input type="text" name="keyword" id="keyword" autofocus autocomplete="off" size="80" placeholder="Masukan yang mau cari">
+        <button type="submit" name="cari" id="tombol-cari">Cari</button>
     </form>
 <br><br>
+<div id="container">
     <table border="1" cellpadding="10" cellspacing="0">
         <tr>
             <th>No</th>
@@ -72,6 +73,7 @@ if (isset($_POST['cari']) ) {
         <?php $i++; ?>
         <?php endforeach; ?>
     </table>
+    </div>
     <a href="tambah.php">tambah</a>
    
     <!-- nafigasi  -->
@@ -93,5 +95,7 @@ if (isset($_POST['cari']) ) {
         <a href="?hal=<?= $halmAktif + 1; ?>">&raquo;</a>  <!-- ini jalankan  -->
     <?php endif; ?>  <!-- untuk mengakhiri if  -->
 
+
+    <script src="js.js"></script>
 </body>
 </html>
