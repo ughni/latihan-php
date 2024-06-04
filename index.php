@@ -32,6 +32,13 @@ if (isset($_POST['cari']) ) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Pendaftaran</title>
+    <style>
+        .lod {
+            width: 70px;
+            position: absolute;
+            display: none;
+        }
+    </style>
 </head>
     <h1>Data Pendaftaran</h1>
 
@@ -42,6 +49,8 @@ if (isset($_POST['cari']) ) {
     <form action="" method="post">
         <input type="text" name="keyword" id="keyword" autofocus autocomplete="off" size="80" placeholder="Masukan yang mau cari">
         <button type="submit" name="cari" id="tombol-cari">Cari</button>
+
+        <img src="img/loading.gif" class="lod">
     </form>
 <br><br>
 <div id="container">
@@ -95,7 +104,10 @@ if (isset($_POST['cari']) ) {
         <a href="?hal=<?= $halmAktif + 1; ?>">&raquo;</a>  <!-- ini jalankan  -->
     <?php endif; ?>  <!-- untuk mengakhiri if  -->
 
+     
+    
 
-    <script src="js.js"></script>
+    <script src="javascript/jquery-3.7.1.min.js"></script>
+    <script src="javascript/js.js"></script>
 </body>
 </html>

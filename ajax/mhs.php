@@ -1,4 +1,5 @@
-<?php 
+<?php
+sleep(1); 
 // koneksi ke function.php
 require '../function.php';
 
