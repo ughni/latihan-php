@@ -32,21 +32,28 @@ if (isset($_POST['cari']) ) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Pendaftaran</title>
+    <link rel="stylesheet" href="style/style.css">
     <style>
         .lod {
             width: 70px;
             position: absolute;
             display: none;
         }
+        @media print{
+            .logout, .fom {
+            display: none;
+            }
+        }
+
     </style>
 </head>
     <h1>Data Pendaftaran</h1>
 
     <br>
-    <a href="logout.php">logout</a>
+    <a href="logout.php" class="logout">logout</a> | <a href="xcek.php" target="_blank">Cetak</a>
     <br>
 
-    <form action="" method="post">
+    <form action="" class="fom" method="post">
         <input type="text" name="keyword" id="keyword" autofocus autocomplete="off" size="80" placeholder="Masukan yang mau cari">
         <button type="submit" name="cari" id="tombol-cari">Cari</button>
 
@@ -111,3 +118,6 @@ if (isset($_POST['cari']) ) {
     <script src="javascript/js.js"></script>
 </body>
 </html>
+
+
+<!-- 2BsY.KZu)7J!A&6 password InfinityFree -->
